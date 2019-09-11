@@ -1,41 +1,34 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react"
 import axios from 'axios';
-import Table from './Table';
 import './App.css';
+import Photo from './Components/Photo';
+import Details from './Components/Details';
 
-const placeHolderApi = 'https://api.nasa.gov/api.html#apod';
 
+const nasaApi = 'https://api.nasa.gov/planetary/apod?api_key=S2uKImruqWbDh0npoFiO4tmQ3y8WaPlTRymhMSnG';
 
 function App() {
-
-  const [photo, setPhoto] = useState();
-  // const [title, seTitle] = useState([]);
-  // const [date, setDate] = useState([]);
-  // const [description, setDescription] = useState([]);
-
-  const [table, setTable] = useState();
-
-  const fillUpTable = (item) => {
-    setTable(table.concat(item));
-  }
-  
-  useEffect(() => {
-    console.log('test message!')
-  });
+ 
+  const [components, setComponents] = useState({});
 
   useEffect (() => {
-    axios.get(placeHolderApi)
+    axios.get(nasaApi)
     .then(response => {
-      setPhoto(response.data.url)
+      setComponents(response.data)
     })
-    // .catch(error => {
-    //   'Error!', error
-    // });
+    .catch(error => {
+      console.log('error');
+    });
   }, []);
+
+  const{title, url, date,  explanation} = components;
 
   return (
     <div className="App">
-      <Table items={table}/>
+      <Photo image={url}/>
+      <div>
+        <Details title={title} date={date} explanation={explanation}/>
+      </div>
 
       {/* <p>
         Read through the instructions in the README.md file to build your NASA
