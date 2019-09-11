@@ -1,38 +1,46 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-// import Cart from './Cart';
-// import Fruits from './Fruits';
+import Table from './Table';
 import './App.css';
 
-const placeHolderApi = 'https://lambda-github-api-server.herokuapp.com/';
+const placeHolderApi = 'https://api.nasa.gov/api.html#apod';
 
 
 function App() {
 
-  const [photo, setPhoto] = useState([]);
+  const [photo, setPhoto] = useState();
+  // const [title, seTitle] = useState([]);
+  // const [date, setDate] = useState([]);
+  // const [description, setDescription] = useState([]);
 
-  //const method to render child components
+  const [table, setTable] = useState();
 
+  const fillUpTable = (item) => {
+    setTable(table.concat(item));
+  }
+  
   useEffect(() => {
-    console.log('faut que ca marche!')
+    console.log('test message!')
   });
 
   useEffect (() => {
     axios.get(placeHolderApi)
     .then(response => {
-      //method to render child components.response.data
+      setPhoto(response.data.url)
     })
-    .catch(error => {
-      'Error!', error
-    });
+    // .catch(error => {
+    //   'Error!', error
+    // });
   }, []);
 
   return (
     <div className="App">
-      <p>
+      <Table items={table}/>
+
+      {/* <p>
         Read through the instructions in the README.md file to build your NASA
         app! Have fun 🚀!
-      </p>
+      </p> */}
     </div>
   );
 }
