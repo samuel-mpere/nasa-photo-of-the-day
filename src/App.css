@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  padding: 50px;
 }
 
 .App-logo {
@@ -30,4 +32,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.imageNasa{
+  width: 500px;
 }
